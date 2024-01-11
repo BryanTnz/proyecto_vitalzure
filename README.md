@@ -7,60 +7,59 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
+## Authentication
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Login
+http://127.0.0.1:8000/api/v1/login<br>
+{ "email":"neoma.corwin@example.com", "password":"secret" }<br>
+![image](https://github.com/BryanTnz/proyecto_vitalzure/assets/66330281/faa0b32b-7435-4829-a8ef-5522bf769f88)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Logout
+http://127.0.0.1:8000/api/v1/logout<br>
+![image](https://github.com/BryanTnz/proyecto_vitalzure/assets/66330281/4949a00e-63ed-423d-b1ff-c1cfdda19129)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Forgot Password
+http://127.0.0.1:8000/api/v1/forgot-password<br>
+{ "email":"neoma.corwin@example.com"}<br>
+![image](https://github.com/BryanTnz/proyecto_vitalzure/assets/66330281/793c8138-4671-4957-9439-676b6d350ded)
 
-## Learning Laravel
+## Resend link
+![image](https://github.com/BryanTnz/proyecto_vitalzure/assets/66330281/f653a27c-8464-4981-a45e-2af0b8989dcb)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Reset Password
+http://127.0.0.1:8000/api/v1/reset-password<br>
+{ 
+  "token":"3b6bfa3e7b1d231d2b5d38a01ec0aa6f08f622601c76c8e80150de08e2e4186a",
+  "email":"neoma.corwin@example.com",
+  "password":"Abcd123*",
+  "password_confirmation":"Abcd123*"
+  
+}<br>
+![image](https://github.com/BryanTnz/proyecto_vitalzure/assets/66330281/32eea4cf-390a-4cc3-a46d-28f1ef744414)
+<br>Inicio de sesion con la nueva contraseña
+![image](https://github.com/BryanTnz/proyecto_vitalzure/assets/66330281/a3b69f94-3d79-4a7d-9aa2-9a0b813c1b18)
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Update Password
+http://127.0.0.1:8000/api/v1/update-password<br>
+{ 
+  "password":"Secret123*",
+   "password_confirmation":"Secret123*"
+}<br>
+![image](https://github.com/BryanTnz/proyecto_vitalzure/assets/66330281/601c65ae-7caa-4111-86c3-21512f3accd5)
+![image](https://github.com/BryanTnz/proyecto_vitalzure/assets/66330281/50365c6e-a5d5-4e6b-bd96-29d2397d87fd)
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Registro de usuario
+http://127.0.0.1:8000/api/v1/register<br>
+{ 
+      "email": "prueba@gmail.org",
+      "password": "secret",
+      "first_name": "prueba",
+      "last_name": "test",
+      "personal_phone": "0967771180",
+      "address": "quito sur",
+      "username": "prueba"
+    } <br>
+![image](https://github.com/BryanTnz/proyecto_vitalzure/assets/66330281/eed3ac13-69c7-4b34-8547-3c653759f2ae)
+![image](https://github.com/BryanTnz/proyecto_vitalzure/assets/66330281/18bd8dfb-1bc9-4747-8f29-3ca8dcbad4be)
 
-## Laravel Sponsors
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
