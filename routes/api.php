@@ -3,6 +3,10 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\Account\ProfileController;
+use App\Http\Controllers\Users\OrganizatorController;
+use App\Http\Controllers\Users\StudentController;
+
 // Se hace uso de grupo de rutas
 // https://laravel.com/docs/9.x/routing#route-groups
 // https://laravel.com/docs/9.x/routing#route-group-prefixes
@@ -17,7 +21,7 @@ Route::prefix('v1')->group(function ()
     {
 
         
-        /*
+        
         // Se hace uso de grupo de rutas Actualizar y cambiar avatar
         Route::prefix('profile')->group(function ()
         {
@@ -28,19 +32,33 @@ Route::prefix('v1')->group(function ()
             });
         });
 
-        // Rutas de ejemplo
-        Route::prefix("director")->group(function ()
+
+        // Rutas para CRUD organizador
+        Route::prefix("organizer")->group(function ()
         {
-            Route::controller(DirectorController::class)->group(function () {
+            Route::controller(OrganizatorController::class)->group(function () {
                 Route::get('/', 'index');
                 Route::post('/create', 'store');
                 Route::get('/{user}', 'show');
                 Route::post('/{user}/update', 'update');
                 Route::get('/{user}/destroy', 'destroy');
             });
-            
         });
-        */
+
+        // Rutas para listar, mostrar y elinar estudiantes
+        Route::prefix("student")->group(function ()
+        {
+            Route::controller(StudentController::class)->group(function () {
+                Route::get('/', 'index');
+                Route::get('/{user}', 'show');
+                Route::get('/{user}/destroy', 'destroy');
+            });
+        });
+
+
+
+
+        
 
     
 
