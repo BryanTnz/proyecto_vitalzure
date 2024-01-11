@@ -56,7 +56,7 @@ class User extends Authenticatable
     // Obtener el nombre completo del usuario
     public function getFullName()
     {
-        return "$this->name $this->lastname";
+        return "$this->first_name $this->last_name";
     }
 
 
