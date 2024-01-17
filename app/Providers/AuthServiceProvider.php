@@ -9,9 +9,13 @@ use App\Models\User;
 class AuthServiceProvider extends ServiceProvider
 {
     
+    // https://laravel.com/docs/9.x/authorization#registering-policies
     protected $policies = [
-        //
+        Publication::class => PublicationPolicy::class,
     ];
+    
+    
+    
 
     // Gates
     public function boot(): void
@@ -31,6 +35,12 @@ class AuthServiceProvider extends ServiceProvider
         {
             return $user->role->slug === "administrador";
         });
+
+
+        
+        
+
+
         
 
 

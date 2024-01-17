@@ -9,6 +9,13 @@ class Publication extends Model
 {
     use HasFactory;
 
+   
+
+    protected $fillable = [
+        'Titulo', 'user_id','id', 'Descripcion', 'Beneficios', 'Procedimiento', 'state',
+        
+    ];
+
     // Relación de uno a muchos
     // Una publicacion le pertenece a un usuario
     public function user()
@@ -24,13 +31,10 @@ class Publication extends Model
     }
    
 
-    protected $fillable = [
-        'user_id',
-        'id',
-        'titulo',
-        'descripcion',
-        'beneficios',
-        'Procedimiento',
-        
-    ];
+    
+
+   
+
+
+
 }

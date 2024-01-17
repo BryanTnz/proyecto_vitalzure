@@ -18,10 +18,11 @@ return new class extends Migration
             $table->string('Descripcion');
             $table->string('Beneficios');
             $table->string('Procedimiento');
+            $table->boolean('state')->default(true);
             //$table->boolean('state')->default(true);
 
             // Relación
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('user_id')->nullable();
             // Un usuario puede realizar muchos publicaciones y una publicacion le pertenece a un usuario
             $table->foreign('user_id')
                     ->references('id')

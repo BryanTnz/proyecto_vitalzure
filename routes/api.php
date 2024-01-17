@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Account\ProfileController;
 use App\Http\Controllers\Users\OrganizatorController;
 use App\Http\Controllers\Users\StudentController;
+use App\Http\Controllers\Publication\PublicationController;
 
 // Se hace uso de grupo de rutas
 // https://laravel.com/docs/9.x/routing#route-groups
@@ -54,6 +55,22 @@ Route::prefix('v1')->group(function ()
                 Route::get('/{user}/destroy', 'destroy');
             });
         });
+
+
+        // Ruta CRUD publicacion, solo el ornizador puede hacer las cinco.
+        Route::prefix('publication')->group(function () {
+            Route::controller(PublicationController::class)->group(function () {
+                Route::get('/', 'index');
+                Route::post('/create', 'store');
+                Route::get('/{report}', 'show');
+                Route::post('/{report}/update', 'update');
+                Route::get('/{report}/destroy', 'destroy');
+            });
+        });
+
+       
+
+    
 
 
 
