@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             PublicationSeeder::class,
             FavoriteSeeder::class,
-            QualificationSeeder::class
+            ImageSeeder::class
         ]);
     }
 }

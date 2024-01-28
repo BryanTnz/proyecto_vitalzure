@@ -12,6 +12,7 @@ class AuthServiceProvider extends ServiceProvider
     // https://laravel.com/docs/9.x/authorization#registering-policies
     protected $policies = [
         Publication::class => PublicationPolicy::class,
+        Favorite::class => FavoritePolicy::class,
     ];
     
     

@@ -19,7 +19,8 @@ class ProfileController extends Controller
         $user = Auth::user();
         // Se invoca a la función padre
         return $this->sendResponse(message: "User's profile returned successfully", result: [
-            'user' => new ProfileResource($user)
+            'user' => new ProfileResource($user),
+            'avatar' => $user->getAvatarPath()
         ]);
     }
 
@@ -34,7 +35,7 @@ class ProfileController extends Controller
 
         // Validación de los datos de entrada
         $request -> validate([
-            //'first_name' => ['required', 'string', 'min:3', 'max:35'],
+            'first_name' => ['required', 'string', 'min:3', 'max:35'],
             'last_name' => ['required', 'string', 'min:3', 'max:35'],
             // https://laravel.com/docs/9.x/validation#rule-unique
             'username' => ['required', 'string', 'min:5', 'max:20',Rule::unique('users')->ignore($request->user()->id)],
@@ -52,11 +53,7 @@ class ProfileController extends Controller
         // https://laravel.com/docs/9.x/queries#update-statements
         $user->update($request->all());
         // Se invoca a la función padre
-        return response()->json([
-            'error' => 'PRUEBA: Unauthorized. You are not allowed to update this publication.',
-            'id' => $user->id,
-            'Nombre' => $user->first_name,
-        ], 403);
+        return $this->sendResponse('Profile updated successfully');
     }
      
 }

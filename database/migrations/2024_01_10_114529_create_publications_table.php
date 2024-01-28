@@ -22,7 +22,7 @@ return new class extends Migration
             //$table->boolean('state')->default(true);
 
             // Relación
-            $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('user_id');
             // Un usuario puede realizar muchos publicaciones y una publicacion le pertenece a un usuario
             $table->foreign('user_id')
                     ->references('id')
@@ -32,7 +32,7 @@ return new class extends Migration
 
             // columnas especiales para la tabla de la BDD
             $table->timestamps();
-            
+            $table->decimal('average', 5, 2)->nullable();
             
         });
     }

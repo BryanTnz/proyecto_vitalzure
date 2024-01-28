@@ -12,7 +12,7 @@ class Publication extends Model
    
 
     protected $fillable = [
-        'Titulo', 'user_id','id', 'Descripcion', 'Beneficios', 'Procedimiento', 'state',
+        'Titulo', 'average', 'user_id','id', 'Descripcion', 'Beneficios', 'Procedimiento', 'state',
         
     ];
 

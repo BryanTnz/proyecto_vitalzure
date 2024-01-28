@@ -32,7 +32,7 @@ class PublicationController extends Controller
         if($user->role->slug === "administrador" || $user->role->slug === "estudiante"){
 
             // Obtener todas las publicaciones
-            $adm = Publication::all();
+            $adm = Publication::where('state', 1)->get();
 
             return $this->sendResponse(message: 'Publication list generated successfully', result: [
                 'reports' => PublicationResource::collection($adm)
@@ -40,7 +40,7 @@ class PublicationController extends Controller
         }
 
         // Del usuario se obtiene las publicaciones
-        $reports = $user->publication;
+        $reports = $user->publication()->where('state', 1)->get();
         // Invoca el controlador padre para la respuesta json
         // El moldeo de la información por el Resource
         return $this->sendResponse(message: 'Publication list generated successfully', result: [
@@ -78,6 +78,11 @@ class PublicationController extends Controller
     // Mostrar la información de la publicacion
     public function show(Publication $report)
     {
+        // Verifica si el estado de la publicación no es 1
+        if ($report->state != 1) {
+            // Si el estado no es 1, puedes devolver una respuesta diferente o lanzar una excepción
+            return $this->sendResponse(message: 'This publication is inactive or deleted.');
+        }
 
         // Invoca el controlador padre para la respuesta json
         // El moldeo de la información por el Resource

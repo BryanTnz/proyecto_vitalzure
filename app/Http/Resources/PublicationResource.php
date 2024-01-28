@@ -15,6 +15,7 @@ class PublicationResource extends JsonResource
         // Se procede a definir la estructura de la respuesta de la petición
         // https://laravel.com/docs/9.x/eloquent-resources#introduction
         return [
+            'Id' => $this->id,
             'Titulo' => $this->Titulo,
             'state' => $this->state,
             'Descripcion' => $this->Descripcion,

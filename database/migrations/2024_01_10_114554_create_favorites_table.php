@@ -11,6 +11,7 @@ return new class extends Migration
     {
         Schema::create('favorites', function (Blueprint $table) {
             $table->id();
+            $table->boolean('state')->default(true);
             $table->timestamps();
             // Relación favorito_estudiante
             $table->unsignedBigInteger('user_id');
@@ -29,6 +30,10 @@ return new class extends Migration
                     ->on('publications')
                     ->onDelete('cascade')
                     ->onUpdate('cascade');
+            // Restricción única para evitar duplicados en user_id y publicacion_id
+            $table->unique(['user_id', 'publicacion_id','state']);
+            $table->integer('calificacion')->nullable();
+            $table->string('feedback')->nullable();
         });
        
     }

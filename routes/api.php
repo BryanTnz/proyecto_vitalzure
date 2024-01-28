@@ -4,9 +4,12 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Account\ProfileController;
+use App\Http\Controllers\Account\AvatarController;
 use App\Http\Controllers\Users\OrganizatorController;
 use App\Http\Controllers\Users\StudentController;
 use App\Http\Controllers\Publication\PublicationController;
+use App\Http\Controllers\Favorite\FavoriteController;
+use App\Http\Controllers\Favorite\QualificationController;
 
 // Se hace uso de grupo de rutas
 // https://laravel.com/docs/9.x/routing#route-groups
@@ -31,6 +34,7 @@ Route::prefix('v1')->group(function ()
                 Route::get('/', 'show')->name('profile');
                 Route::post('/', 'store')->name('profile.store');
             });
+            Route::post('/avatar', [AvatarController::class, 'store'])->name('profile.avatar');
         });
 
 
@@ -67,6 +71,37 @@ Route::prefix('v1')->group(function ()
                 Route::get('/{report}/destroy', 'destroy');
             });
         });
+
+
+        // Ruta CRUD Favoritos, solo el usuario rol estudiante puede acceder a estas rutas
+        Route::prefix('favorite')->group(function () {
+            Route::controller(FavoriteController::class)->group(function ()
+            {
+                Route::get('/', 'index');
+                Route::post('/create', 'store');
+                Route::get('/{report}', 'show');
+                Route::post('/{report}/update', 'update');
+                Route::get('/{report}/destroy', 'destroy');
+            });
+        });
+
+        // Ruta Qualification estudiante y organizador
+        Route::prefix('qualification')->group(function () {
+            Route::controller(QualificationController::class)->group(function ()
+            {
+                Route::get('/', 'index');
+                //Route::post('/create', 'store');
+                Route::get('/{report}', 'show');
+                //Route::post('/{report}/update', 'update');
+                //Route::get('/{report}/destroy', 'destroy');
+            });
+        });
+
+
+        
+
+
+
 
        
 

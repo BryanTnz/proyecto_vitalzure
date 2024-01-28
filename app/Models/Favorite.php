@@ -9,6 +9,10 @@ class Favorite extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['id', 'publicacion_id', 'state', 'calificacion', 'feedback'];
+
+
+
     // Relación de uno a muchos
     // Un favorito le pertenece a una publicacion
     public function publication()
@@ -16,13 +20,7 @@ class Favorite extends Model
         return $this->belongsTo(Publication::class);
     }
 
-    // Relación de uno a muchos
-    // Un favorito puede tener muchas calificaciones
-    public function qualification()
-    {
-        return $this->hasMany(Qualification::class);
-    }
-
+    
     // Una publicacion puede tener muchos favoritos y un favorito le pertenece a una publicacion
 
     // Relación de uno a muchos
