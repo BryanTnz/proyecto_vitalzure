@@ -63,3 +63,9 @@ Si el usuario es con rol organizador solo puede ver las calificaciones de sus pu
 http://127.0.0.1:8000/api/v1/qualification/8 <br>
 ![image](https://github.com/BryanTnz/proyecto_vitalzure/assets/66330281/c99295ec-52dc-4ba3-8b51-a19e29c6d36e)
 
+## Cambiar el avatar de perfil de usuario
+http://127.0.0.1:8000/api/v1/profile/avatar <br>
+![image](https://github.com/BryanTnz/proyecto_vitalzure/assets/66330281/03ba9a1e-4627-41d6-867e-4c60b7b1d149) <br>
+Avatar actualizado y almacenado en dropbox<br>
+![image](https://github.com/BryanTnz/proyecto_vitalzure/assets/66330281/6911b75a-105a-4efd-87f4-43aa2fb7ed19)
+
