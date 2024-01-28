@@ -8,7 +8,7 @@
 </p>
 
 ## CRUD FAVORITOS
-Solo el usario con rol estudiante puede acceder a estas rutas.
+Solo el usuario con rol estudiante puede acceder a estas rutas.
 
 ## Listar favoritos
 http://127.0.0.1:8000/api/v1/favorite
@@ -41,8 +41,25 @@ http://127.0.0.1:8000/api/v1/favorite/13 <br>
 
 ## Eliminar favorito
 http://127.0.0.1:8000/api/v1/favorite/3/destroy <br>
-![image](https://github.com/BryanTnz/proyecto_vitalzure/assets/66330281/ec2d834c-8617-4ddb-98bf-63e4a0ed3db1)
+![image](https://github.com/BryanTnz/proyecto_vitalzure/assets/66330281/7d951f89-dbbf-428e-8442-62f99b52ab03)
 
 
-## CRUD FAVORITOS
-Solo el usario con rol estudiante puede acceder a estas rutas.
+## Listar calificaciones
+El usuario con rol estudiante y organizador puede acceder a estas rutas. Para el usuario administrador no esta disponible<br>
+
+Si el usuario es con rol estudiante se muestra las 3 primeras publicaciones con mejor puntuacion<br>
+http://127.0.0.1:8000/api/v1/qualification<br>
+![image](https://github.com/BryanTnz/proyecto_vitalzure/assets/66330281/9d37e2cd-b4e3-4af3-8915-60230ce248bb)<br>
+
+Si el usuario es con rol organizador se muestra las calificaciones de sus publicaciones<br>
+![image](https://github.com/BryanTnz/proyecto_vitalzure/assets/66330281/8875708c-08c1-4183-91bf-ea6812ce07cd)
+
+## Ver calificacion
+Si el usuario es con rol estudiante puede ver la calificacion de cualquier publicacion<br>
+http://127.0.0.1:8000/api/v1/qualification/7 <br>
+![image](https://github.com/BryanTnz/proyecto_vitalzure/assets/66330281/45a60e16-37f0-42c9-b102-db9fc7c7469a)<br>
+
+Si el usuario es con rol organizador solo puede ver las calificaciones de sus publicacion<br>
+http://127.0.0.1:8000/api/v1/qualification/8 <br>
+![image](https://github.com/BryanTnz/proyecto_vitalzure/assets/66330281/c99295ec-52dc-4ba3-8b51-a19e29c6d36e)
+
