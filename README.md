@@ -9,4 +9,5 @@
 
 ## Base de datos
 
-![image](https://github.com/BryanTnz/proyecto_vitalzure/assets/66330281/cce10a6e-503e-4b7e-b311-7aca32e5fad9)
+![image](https://github.com/BryanTnz/proyecto_vitalzure/assets/66330281/a7d480c2-666f-41e6-9764-303a4d25b1b0)
+
