@@ -29,13 +29,8 @@
  
         "CACHE_DRIVER": "array",
         "LOG_CHANNEL": "stderr",
-        "SESSION_DRIVER": "cookie",
+        "SESSION_DRIVER": "cookie"
 
-        "DB_CONNECTION":"mysql",
-        "DB_HOST":"mysql-bryantnz.alwaysdata.net",
-        "DB_PORT":"3306",
-        "DB_DATABASE":"bryantnz_vitalzure",
-        "DB_USERNAME":"bryantnz",
-        "DB_PASSWORD":"screamo66"
+
     }
 }
