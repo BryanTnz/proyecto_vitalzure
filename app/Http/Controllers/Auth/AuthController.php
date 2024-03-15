@@ -9,6 +9,9 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Resources\UserResource;
 
+use Tymon\JWTAuth\Facades\JWTAuth;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
+
 class AuthController extends Controller
 {
     // Creación de un array con los roles que se pueden descartar
@@ -17,16 +20,24 @@ class AuthController extends Controller
     // Función para el manejo del inicio de sesión
     public function login(Request $request)
     {
-        // Validación de los datos de entrada
-        $request -> validate([
-            'email' => ['required', 'string', 'email'],
-            'password' => ['required', 'string'],
-        ], [
-            'email.required' => 'El campo email es obligatorio.',
-            'email.email' => 'Por favor ingresa un email válido.',
-            'password.required' => 'El campo contraseña es obligatorio.'
-        ]);
 
+        if ($request->bearerToken()) {
+            return response()->json(['message' => 'Error invalid Bearer Token '], 400);
+        }
+
+        // Validar el JSON
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            return response()->json(['message' => 'Error invalid JSON '], 400);
+        }
+       
+        // Validar los campos
+        if($request['email'] == ""){
+            return $this->sendResponse(message: 'The "email" field must not be empty', code: 400);
+        } elseif (!filter_var($request['email'], FILTER_VALIDATE_EMAIL)){
+            return $this->sendResponse(message: 'The email is not valid', code: 400);
+        } elseif ($request['password'] == ""){
+            return $this->sendResponse(message: 'The "password" field must not be empty', code: 400);
+        } 
 
         // Obtener un usuario
         $user = User::where('email', $request['email'])->first();

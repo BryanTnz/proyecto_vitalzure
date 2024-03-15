@@ -9,6 +9,8 @@ use App\Http\Resources\FavoriteResource;
 use App\Models\Favorite;
 use Illuminate\Support\Facades\Auth;
 
+use Illuminate\Support\Facades\Validator;
+
 class FavoriteController extends Controller
 {
 
@@ -42,11 +44,28 @@ class FavoriteController extends Controller
     // Crear un nuevo favorito
     public function store(Request $request)
     {
+        // Validar el JSON
+        if (json_last_error() !== JSON_ERROR_NONE) {
+        return response()->json(['message' => 'Error invalid JSON '], 400);
+        }
+    
+        $validator = Validator::make($request->all(), [
+            'publicacion_id' => 'required|numeric',
+            'calificacion' => 'nullable|numeric',
+            'feedback' => 'nullable|string|min:3|max:200',
+           
+        ]);
+
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            return response()->json(['errors' => $errors], 400);
+        }
+
         // Validación de los datos de entrada
         $request -> validate([
             'publicacion_id' => ['required', 'numeric'],
             'calificacion'   => ['nullable', 'numeric'],
-            'feedback' => ['nullable', 'string', 'min:3', 'max:45'],
+            'feedback' => ['nullable', 'string', 'min:3', 'max:200'],
         ]);
 
         // Comprobacion calificacion
@@ -82,11 +101,27 @@ class FavoriteController extends Controller
     // Actualizar la información del favorito
     public function update(Request $request, Favorite $report)
     {
+        // Validar el JSON
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            return response()->json(['message' => 'Error invalid JSON '], 400);
+        }
+    
+        $validator = Validator::make($request->all(), [
+            'calificacion' => 'required|numeric',
+            'feedback' => 'nullable|string|min:3|max:200',
+            
+        ]);
+
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            return response()->json(['errors' => $errors], 400);
+        }
+
     
         // Validación de los datos de entrada
         $request->validate([
             'calificacion' => ['required', 'numeric'],
-            'feedback' => ['nullable', 'string', 'min:3', 'max:45'],
+            'feedback' => ['nullable', 'string', 'min:3', 'max:200'],
         ]);
         
         // Del request se obtiene unicamente la calificacion

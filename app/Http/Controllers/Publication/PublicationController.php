@@ -9,6 +9,8 @@ use App\Http\Resources\PublicationResource;
 use App\Models\Publication;
 use Illuminate\Support\Facades\Auth;
 
+use Illuminate\Support\Facades\Validator;
+
 class PublicationController extends Controller
 {
 
@@ -51,12 +53,29 @@ class PublicationController extends Controller
     // Crear una nueva publicacion
     public function store(Request $request)
     {
+        // Validar el JSON
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            return response()->json(['message' => 'Error invalid JSON '], 400);
+        }
+       
+        $validator = Validator::make($request->all(), [
+            'Titulo' => 'required|string|min:3|max:20',
+            'Descripcion' => 'required|string|min:3|max:200',
+            'Beneficios' => 'required|string|min:3|max:200',
+            'Procedimiento' => 'required|string|min:3|max:200',
+        ]);
+
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            return response()->json(['errors' => $errors], 400);
+        }
+
         // Validación de los datos de entrada
         $request -> validate([
-            'Titulo' => ['required', 'string', 'min:3', 'max:45'],
-            'Descripcion' => ['required', 'string', 'min:3', 'max:45'],
-            'Beneficios' => ['required', 'string', 'min:3', 'max:45'],
-            'Procedimiento' => ['required', 'string', 'min:3', 'max:45'],
+            'Titulo' => ['required', 'string', 'min:3', 'max:20'],
+            'Descripcion' => ['required', 'string', 'min:3', 'max:200'],
+            'Beneficios' => ['required', 'string', 'min:3', 'max:200'],
+            'Procedimiento' => ['required', 'string', 'min:3', 'max:200'],
             
         ]);
 
@@ -94,13 +113,29 @@ class PublicationController extends Controller
     // Actualizar la información del reporte
     public function update(Request $request, Publication $report)
     {
-       
+       // Validar el JSON
+       if (json_last_error() !== JSON_ERROR_NONE) {
+        return response()->json(['message' => 'Error invalid JSON '], 400);
+        }
+    
+        $validator = Validator::make($request->all(), [
+            'Titulo' => 'required|string|min:3|max:20',
+            'Descripcion' => 'required|string|min:3|max:200',
+            'Beneficios' => 'required|string|min:3|max:200',
+            'Procedimiento' => 'required|string|min:3|max:200',
+        ]);
+
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            return response()->json(['errors' => $errors], 400);
+        }
+
         // Validación de los datos de entrada
         $request -> validate([
-            'Titulo' => ['required', 'string', 'min:3', 'max:45'],
-            'Descripcion' => ['required', 'string', 'min:3', 'max:45'],
-            'Beneficios' => ['required', 'string', 'min:3', 'max:45'],
-            'Procedimiento' => ['required', 'string', 'min:3', 'max:45'],
+            'Titulo' => ['required', 'string', 'min:3', 'max:20'],
+            'Descripcion' => ['required', 'string', 'min:3', 'max:200'],
+            'Beneficios' => ['required', 'string', 'min:3', 'max:200'],
+            'Procedimiento' => ['required', 'string', 'min:3', 'max:200'],
         ]);
 
         // Del request se obtiene unicamente los cuatro campos

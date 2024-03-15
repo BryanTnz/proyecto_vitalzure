@@ -13,6 +13,7 @@ class UserResource extends JsonResource
         // Se procede a definir la estructura de la respuesta de la petición
         // https://laravel.com/docs/9.x/eloquent-resources#introduction
         return [
+            'id' => $this->id,
             'username' => $this->username,
             'full_name' => $this->getFullName(),
             'email' => $this->email,

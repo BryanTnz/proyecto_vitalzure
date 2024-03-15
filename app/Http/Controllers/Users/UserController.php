@@ -13,6 +13,8 @@ use App\Notifications\UserStoredNotification;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 
+use Illuminate\Support\Facades\Validator;
+
 class UserController extends Controller
 {
     // Atributo para controlar los roles
@@ -47,7 +49,7 @@ class UserController extends Controller
         // Obtener el rol del usuario
         $role = Role::where('slug', $this->role_slug)->first();
         // Obtener los usuarios en base a la relación
-        $users = $role->users;
+        $users = $role->users()->where('state', 1)->get();
         // Invoca el controlador padre para la respuesta json
         return $this->sendResponse(message: 'User list generated successfully', result: [
             'users' => UserResource::collection($users),
@@ -57,6 +59,26 @@ class UserController extends Controller
     // Crear un nuevo usuario
     public function store(Request $request)
     {
+        // Validar el JSON
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            return response()->json(['message' => 'Error invalid JSON '], 400);
+        }
+       
+        $validator = Validator::make($request->all(), [
+            'username' => 'required|unique:users|min:5|max:20',
+            'first_name' => 'required|string|min:3|max:35|regex:/^(?=.*[a-zA-Z])[a-zA-Z0-9]+$/',
+            'last_name' => 'required|string|min:3|max:35|regex:/^(?=.*[a-zA-Z])[a-zA-Z0-9]+$/',
+            'personal_phone' => 'required|numeric|digits:10',
+            'address' => 'required|string|min:5|max:50',
+            'home_phone' => 'required|numeric|digits:9',
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
+        ]);
+
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            return response()->json(['errors' => $errors], 400);
+        }
+
             // Validación de los datos de entrada
         $request -> validate([
             'first_name' => ['required', 'string', 'min:3', 'max:35'],
@@ -104,6 +126,27 @@ class UserController extends Controller
     // Actualizar el usuario
     public function update(Request $request, User $user)
     {
+
+        // Validar el JSON
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            return response()->json(['message' => 'Error invalid JSON '], 400);
+        }
+       
+        $validator = Validator::make($request->all(), [
+            'username' => 'required|unique:users|min:5|max:20',
+            'first_name' => 'required|string|min:3|max:35|regex:/^(?=.*[a-zA-Z])[a-zA-Z0-9]+$/',
+            'last_name' => 'required|string|min:3|max:35|regex:/^(?=.*[a-zA-Z])[a-zA-Z0-9]+$/',
+            'personal_phone' => 'required|numeric|digits:10',
+            'address' => 'required|string|min:5|max:50',
+            'home_phone' => 'required|numeric|digits:9',
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
+        ]);
+
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            return response()->json(['errors' => $errors], 400);
+        }
+
             // Validación de los datos de entrada
         $user_data=$request -> validate([
             'first_name' => ['required', 'string', 'min:3', 'max:35'],

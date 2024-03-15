@@ -17,6 +17,19 @@ class PasswordController extends Controller
     // Función para el manejo del reseteo de contraseña
     public function resendLink(Request $request)
     {
+        // Validar el JSON
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            return response()->json(['message' => 'Error invalid JSON '], 400);
+        }
+       
+        // Validar los campos
+        if($request['email'] == ""){
+            return $this->sendResponse(message: 'The "email" field must not be empty', code: 400);
+        } elseif (!filter_var($request['email'], FILTER_VALIDATE_EMAIL)){
+            return $this->sendResponse(message: 'The email is not valid', code: 400);
+        } 
+
+
         // Validación de los datos de entrada
         $request->validate([
             'email' => ['required', 'email'],
@@ -51,6 +64,28 @@ class PasswordController extends Controller
     // Función para la actualización del password
     public function restore(Request $request)
     {
+        // Validar el JSON
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            return response()->json(['message' => 'Error invalid JSON '], 400);
+        }
+       
+        // Validar los campos
+        if($request['token'] == ""){
+            return $this->sendResponse(message: 'The "token" field must not be empty', code: 400);
+        } elseif ($request['email'] == ""){
+            return $this->sendResponse(message: 'The "email" field must not be empty', code: 400);
+        } elseif (!filter_var($request['email'], FILTER_VALIDATE_EMAIL)){
+            return $this->sendResponse(message: 'The email is not valid', code: 400);
+        } elseif ($request['password'] == ""){
+            return $this->sendResponse(message: 'The "password" field must not be empty', code: 400);
+        } elseif ($request['password_confirmation'] == ""){
+            return $this->sendResponse(message: 'The "password_confirmation" field must not be empty', code: 400);
+        } elseif ($request['password_confirmation'] != $request['password']){
+            return $this->sendResponse(message: 'The password must be the same', code: 400);
+        } elseif (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/', $request['password'])){
+            return $this->sendResponse(message: 'The password required mixedcase, numbers, symbols and 8 digits', code: 400);
+        }
+
         // Validación de los datos de entrada
         $validated = $request -> validate([
             'token' => ['required', 'string'],
@@ -87,6 +122,16 @@ class PasswordController extends Controller
     // Función para actualizar el password del suuario
     public function update(Request $request)
     {
+        if ($request['password'] == ""){
+            return $this->sendResponse(message: 'The "password" field must not be empty', code: 400);
+        } elseif ($request['password_confirmation'] == ""){
+            return $this->sendResponse(message: 'The "password_confirmation" field must not be empty', code: 400);
+        } elseif ($request['password_confirmation'] != $request['password']){
+            return $this->sendResponse(message: 'The password must be the same', code: 400);
+        } elseif (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/', $request['password'])){
+            return $this->sendResponse(message: 'The password required mixedcase, numbers, symbols and 8 digits', code: 400);
+        }
+
         // Validación de los datos de entrada
         $validated = $request -> validate([
         'password' => ['required', 'string', 'confirmed',

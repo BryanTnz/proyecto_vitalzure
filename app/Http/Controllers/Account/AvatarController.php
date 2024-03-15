@@ -7,10 +7,22 @@ use Illuminate\Http\Request;
 
 use App\Helpers\ImageHelper;
 
+use Illuminate\Support\Facades\Validator;
+
 class AvatarController extends Controller
 {
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'image' => 'required|image|mimes:jpg,png,jpeg|max:512',
+            
+        ]);
+
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            return response()->json(['errors' => $errors], 400);
+        }
+
         // Validación de los datos de entrada
         $request -> validate([
             'image' => ['required', 'image', 'mimes:jpg,png,jpeg', 'max:512'],
